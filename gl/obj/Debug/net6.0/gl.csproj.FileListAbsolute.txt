@@ -1,0 +1,15 @@
+C:\Users\firde\Desktop\Glory-Programming-Language\gl\bin\Debug\net6.0\gl.exe
+C:\Users\firde\Desktop\Glory-Programming-Language\gl\bin\Debug\net6.0\gl.deps.json
+C:\Users\firde\Desktop\Glory-Programming-Language\gl\bin\Debug\net6.0\gl.runtimeconfig.json
+C:\Users\firde\Desktop\Glory-Programming-Language\gl\bin\Debug\net6.0\gl.dll
+C:\Users\firde\Desktop\Glory-Programming-Language\gl\bin\Debug\net6.0\gl.pdb
+C:\Users\firde\Desktop\Glory-Programming-Language\gl\obj\Debug\net6.0\gl.csproj.AssemblyReference.cache
+C:\Users\firde\Desktop\Glory-Programming-Language\gl\obj\Debug\net6.0\gl.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\firde\Desktop\Glory-Programming-Language\gl\obj\Debug\net6.0\gl.AssemblyInfoInputs.cache
+C:\Users\firde\Desktop\Glory-Programming-Language\gl\obj\Debug\net6.0\gl.AssemblyInfo.cs
+C:\Users\firde\Desktop\Glory-Programming-Language\gl\obj\Debug\net6.0\gl.csproj.CoreCompileInputs.cache
+C:\Users\firde\Desktop\Glory-Programming-Language\gl\obj\Debug\net6.0\gl.dll
+C:\Users\firde\Desktop\Glory-Programming-Language\gl\obj\Debug\net6.0\refint\gl.dll
+C:\Users\firde\Desktop\Glory-Programming-Language\gl\obj\Debug\net6.0\gl.pdb
+C:\Users\firde\Desktop\Glory-Programming-Language\gl\obj\Debug\net6.0\gl.genruntimeconfig.cache
+C:\Users\firde\Desktop\Glory-Programming-Language\gl\obj\Debug\net6.0\ref\gl.dll
