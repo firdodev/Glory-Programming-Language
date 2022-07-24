@@ -12,17 +12,25 @@ namespace gl{
                 }
 
                 var parser = new Parser(line);
-                var expression = parser.Parse();
+                var syntaxTree = parser.Parse();
 
                 var color = Console.ForegroundColor;
                 Console.ForegroundColor = ConsoleColor.DarkGray;
-                PrettyPrint(expression);
+                PrettyPrint(syntaxTree.Root);
                 Console.ForegroundColor = color;
 
-                if(parser.Diagnostics.Any()){
+                if (!syntaxTree.Diagnostics.Any())
+                {
+                    var e = new Evaluator(syntaxTree.Root);
+                    var result = e.Evaluate();
+                    Console.WriteLine(result);
+                }
+                else
+                {
                     Console.ForegroundColor = ConsoleColor.DarkRed;
-                    
-                    foreach(var diagnostics in parser.Diagnostics){
+
+                    foreach (var diagnostics in syntaxTree.Diagnostics)
+                    {
                         Console.WriteLine(diagnostics);
                     }
 
@@ -134,7 +142,10 @@ namespace gl{
 
                 var length = _position - start;
                 var text = _text.Substring(start, length);
-                int.TryParse(text, out var value);
+                if(!int.TryParse(text, out var value)){
+                    _diagnostics.Add($"The number {_text} isn't valid Int32.");
+                }
+
                 return new SyntaxToken(SyntaxKind.NumberToken, start, text, value);
             }
 
@@ -217,6 +228,18 @@ namespace gl{
 
     }
 
+    sealed class SyntaxTree{
+        public SyntaxTree(IEnumerable<string> diagnostics, ExpressionSyntax root, SyntaxToken endOfFileToken){
+            Diagnostics = diagnostics.ToArray();
+            Root = root;
+            EndOfFileToken = endOfFileToken;
+        }
+
+        public IReadOnlyList<string> Diagnostics { get; }
+        public ExpressionSyntax Root { get; }
+        public SyntaxToken EndOfFileToken { get; }
+    }
+    
     class Parser{
         private readonly SyntaxToken[] _tokens;
         private List<string> _diagnostics = new List<string>();
@@ -267,10 +290,32 @@ namespace gl{
             return new SyntaxToken(kind, Current.Position, null, null);
         }
 
-        public ExpressionSyntax Parse(){
+        public SyntaxTree Parse(){
+            var expresion = ParseTerm();
+            var endOfFileToken = Match(SyntaxKind.EndOfFileToken);
+
+            return new SyntaxTree(_diagnostics, expresion, endOfFileToken);
+
+        }
+
+        private ExpressionSyntax ParseTerm(){
+            var left = ParseFactor();
+
+            while (Current.Kind == SyntaxKind.PlusToken || Current.Kind == SyntaxKind.MinusToken || Current.Kind == SyntaxKind.StarToken || Current.Kind == SyntaxKind.SlashToken)
+            {
+                var operatorToken = NextToken();
+                var right = ParseFactor();
+                left = new BinaryExpressionSyntax(left, operatorToken, right);
+            }
+
+            return left;
+        }
+
+        private ExpressionSyntax ParseFactor(){
             var left = ParsePrimaryExpression();
 
-            while(Current.Kind == SyntaxKind.PlusToken || Current.Kind == SyntaxKind.MinusToken){
+            while (Current.Kind == SyntaxKind.StarToken || Current.Kind == SyntaxKind.SlashToken)
+            {
                 var operatorToken = NextToken();
                 var right = ParsePrimaryExpression();
                 left = new BinaryExpressionSyntax(left, operatorToken, right);
@@ -284,4 +329,43 @@ namespace gl{
             return new NumberExpressionSyntax(numberToken);
         }
     }
+
+    class Evaluator{
+
+        private readonly ExpressionSyntax _root;
+
+        public Evaluator(ExpressionSyntax root){
+            this._root = root;
+        }
+
+        public int Evaluate(){
+            return EvaluateExpression(_root);
+        }
+
+        private int EvaluateExpression(ExpressionSyntax node){
+            if(node is NumberExpressionSyntax n)
+                return (int) n.NumberToken.Value;
+
+            if(node is BinaryExpressionSyntax b){
+                var left = EvaluateExpression(b.Left);
+                var right = EvaluateExpression(b.Right);
+
+                if(b.OperatorToken.Kind == SyntaxKind.PlusToken)
+                    return left + right;
+                else if(b.OperatorToken.Kind == SyntaxKind.MinusToken)
+                    return left - right;
+                else if(b.OperatorToken.Kind == SyntaxKind.StarToken)
+                    return left * right;
+                else if(b.OperatorToken.Kind == SyntaxKind.SlashToken)
+                    return left / right;
+                else 
+                    throw new Exception($"Unexpected binary operator {b.OperatorToken.Kind}");
+            }
+
+            throw new Exception($"Unexpected node {node.Kind}");
+        }
+    }
+
+
+
 }
