@@ -2,5 +2,4 @@
 
 > Basic Info
 
-This repo is a compiler and a programming language written to programm in GloryEngine.
-<br>More details follow.
+This repo is a compiler called Glory only made to program in a custom Game Engine.
