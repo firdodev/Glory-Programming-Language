@@ -1,8 +1,13 @@
 {
   "version": 2,
-  "dgSpecHash": "ZHPY3ra9PedEL983oXIEEdasRSryFBwGDEawgIUEqdUPR6xC4pBNSSlmCcTVJrN2PTcI2qStU7scoRuQqz1g9g==",
+  "dgSpecHash": "ahZ0+JXfLaALto8Axan7t5ZMrjh0rmlgSEnnk/1zzbVuPa5R3EG1HETPlHxyrhs857ZX26ZDcadwuMY2KWnR/w==",
   "success": true,
-  "projectFilePath": "C:\\Users\\Firdo\\Desktop\\Glory-Programming-Language\\gl\\gl.csproj",
-  "expectedPackageFiles": [],
+  "projectFilePath": "C:\\Users\\outer\\OneDrive\\Documents\\GitHub\\Glory-Programming-Language\\gl\\gl.csproj",
+  "expectedPackageFiles": [
+    "C:\\Users\\outer\\.nuget\\packages\\microsoft.netcore.app.ref\\6.0.25\\microsoft.netcore.app.ref.6.0.25.nupkg.sha512",
+    "C:\\Users\\outer\\.nuget\\packages\\microsoft.windowsdesktop.app.ref\\6.0.25\\microsoft.windowsdesktop.app.ref.6.0.25.nupkg.sha512",
+    "C:\\Users\\outer\\.nuget\\packages\\microsoft.aspnetcore.app.ref\\6.0.25\\microsoft.aspnetcore.app.ref.6.0.25.nupkg.sha512",
+    "C:\\Users\\outer\\.nuget\\packages\\microsoft.netcore.app.host.win-x64\\6.0.25\\microsoft.netcore.app.host.win-x64.6.0.25.nupkg.sha512"
+  ],
   "logs": []
 }

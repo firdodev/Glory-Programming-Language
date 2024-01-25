@@ -1,20 +1,18 @@
-namespace Unyo.CodeAnalysis
+namespace Glory.CodeAnalysis
 {
-  enum SyntaxKind
-    {
-        NumberToken,
-        WhitespaceToken,
-        PlusToken,
-        MinusToken,
-        StarToken,
-        SlashToken,
-        OpenParenthesisToken,
-        CloseParenthesisToken,
-        BadToken,
-        EndOfFileToken,
-        NumberExpression,
-        BinaryExpression,
-        ParenthesizedExpression
-    }
-
+  public enum SyntaxKind {    
+    NumberToken,
+    WhitespaceToken,
+    PlusToken,
+    MinusToken,
+    StarToken,
+    SlashToken,
+    OpenParenthesisToken,
+    CloseParenthesisToken,
+    BadToken,
+    EndOfFileToken,
+    NumberExpression,
+    BinaryExpression,
+    ParenthesizedExpression
+  }
 }

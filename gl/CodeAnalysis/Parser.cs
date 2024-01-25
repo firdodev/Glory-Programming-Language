@@ -1,6 +1,6 @@
-namespace Unyo.CodeAnalysis
+namespace Glory.CodeAnalysis
 {
-  class Parser
+    internal sealed class Parser
     {
         private readonly SyntaxToken[] _tokens;
         private List<string> _diagnostics = new List<string>();
@@ -48,7 +48,7 @@ namespace Unyo.CodeAnalysis
             return current;
         }
 
-        private SyntaxToken Match(SyntaxKind kind)
+        private SyntaxToken MatchToken(SyntaxKind kind)
         {
             if (Current.Kind == kind)
                 return NextToken();
@@ -57,18 +57,17 @@ namespace Unyo.CodeAnalysis
             return new SyntaxToken(kind, Current.Position, null, null);
         }
 
+        public SyntaxTree Parse()
+        {
+            var expresion = ParseExpression();
+            var endOfFileToken = MatchToken(SyntaxKind.EndOfFileToken);
+
+            return new SyntaxTree(_diagnostics, expresion, endOfFileToken);
+        }
+
         private ExpressionSyntax ParseExpression()
         {
             return ParseTerm();
-        }
-
-        public SyntaxTree Parse()
-        {
-            var expresion = ParseTerm();
-            var endOfFileToken = Match(SyntaxKind.EndOfFileToken);
-
-            return new SyntaxTree(_diagnostics, expresion, endOfFileToken);
-
         }
 
         private ExpressionSyntax ParseTerm()
@@ -105,12 +104,12 @@ namespace Unyo.CodeAnalysis
             {
                 var left = NextToken();
                 var expression = ParseExpression();
-                var right = Match(SyntaxKind.CloseParenthesisToken);
+                var right = MatchToken(SyntaxKind.CloseParenthesisToken);
                 return new ParenthesizedExpressionSyntax(left, expression, right);
             }
 
-            var numberToken = Match(SyntaxKind.NumberToken);
-            return new NumberExpressionSyntax(numberToken);
+            var numberToken = MatchToken(SyntaxKind.NumberToken);
+            return new LiteralExpressionSyntax(numberToken);
         }
     }
 

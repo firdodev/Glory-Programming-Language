@@ -1,8 +1,5 @@
-namespace Unyo.CodeAnalysis
-{
-  abstract class ExpressionSyntax : SyntaxNode
-    {
-
-    }
-
+namespace Glory.CodeAnalysis {
+  public abstract class ExpressionSyntax : SyntaxNode {
+    
+  }
 }

@@ -2,31 +2,26 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 
-namespace Unyo.CodeAnalysis
+namespace Glory.CodeAnalysis
 {
 
-  class Evaluator
-    {
+    public sealed class Evaluator {
 
         private readonly ExpressionSyntax _root;
 
-        public Evaluator(ExpressionSyntax root)
-        {
+        public Evaluator(ExpressionSyntax root) {
             this._root = root;
         }
 
-        public int Evaluate()
-        {
+        public int Evaluate() {
             return EvaluateExpression(_root);
         }
 
-        private int EvaluateExpression(ExpressionSyntax node)
-        {
-            if (node is NumberExpressionSyntax n)
-                return (int)n.NumberToken.Value;
+        private int EvaluateExpression(ExpressionSyntax node) {
+            if (node is LiteralExpressionSyntax n)
+                return (int)n.LiteralToken.Value;
 
-            if (node is BinaryExpressionSyntax b)
-            {
+            if (node is BinaryExpressionSyntax b) {
                 var left = EvaluateExpression(b.Left);
                 var right = EvaluateExpression(b.Right);
 

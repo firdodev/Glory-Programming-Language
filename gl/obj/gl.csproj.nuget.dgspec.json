@@ -1,23 +1,23 @@
 {
   "format": 1,
   "restore": {
-    "C:\\Users\\Firdo\\Desktop\\Glory-Programming-Language\\gl\\gl.csproj": {}
+    "C:\\Users\\outer\\OneDrive\\Documents\\GitHub\\Glory-Programming-Language\\gl\\gl.csproj": {}
   },
   "projects": {
-    "C:\\Users\\Firdo\\Desktop\\Glory-Programming-Language\\gl\\gl.csproj": {
+    "C:\\Users\\outer\\OneDrive\\Documents\\GitHub\\Glory-Programming-Language\\gl\\gl.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\Firdo\\Desktop\\Glory-Programming-Language\\gl\\gl.csproj",
+        "projectUniqueName": "C:\\Users\\outer\\OneDrive\\Documents\\GitHub\\Glory-Programming-Language\\gl\\gl.csproj",
         "projectName": "gl",
-        "projectPath": "C:\\Users\\Firdo\\Desktop\\Glory-Programming-Language\\gl\\gl.csproj",
-        "packagesPath": "C:\\Users\\Firdo\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\Firdo\\Desktop\\Glory-Programming-Language\\gl\\obj\\",
+        "projectPath": "C:\\Users\\outer\\OneDrive\\Documents\\GitHub\\Glory-Programming-Language\\gl\\gl.csproj",
+        "packagesPath": "C:\\Users\\outer\\.nuget\\packages\\",
+        "outputPath": "C:\\Users\\outer\\OneDrive\\Documents\\GitHub\\Glory-Programming-Language\\gl\\obj\\",
         "projectStyle": "PackageReference",
         "fallbackFolders": [
-          "D:\\Visual Studio\\Shared\\NuGetPackages"
+          "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
         ],
         "configFilePaths": [
-          "C:\\Users\\Firdo\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Users\\outer\\AppData\\Roaming\\NuGet\\NuGet.Config",
           "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.FallbackLocation.config",
           "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
         ],
@@ -54,12 +54,30 @@
           ],
           "assetTargetFallback": true,
           "warn": true,
+          "downloadDependencies": [
+            {
+              "name": "Microsoft.AspNetCore.App.Ref",
+              "version": "[6.0.25, 6.0.25]"
+            },
+            {
+              "name": "Microsoft.NETCore.App.Host.win-x64",
+              "version": "[6.0.25, 6.0.25]"
+            },
+            {
+              "name": "Microsoft.NETCore.App.Ref",
+              "version": "[6.0.25, 6.0.25]"
+            },
+            {
+              "name": "Microsoft.WindowsDesktop.App.Ref",
+              "version": "[6.0.25, 6.0.25]"
+            }
+          ],
           "frameworkReferences": {
             "Microsoft.NETCore.App": {
               "privateAssets": "all"
             }
           },
-          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\7.0.100\\RuntimeIdentifierGraph.json"
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\8.0.100\\RuntimeIdentifierGraph.json"
         }
       }
     }

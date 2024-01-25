@@ -1,14 +1,13 @@
 ﻿using System;
-using Unyo.CodeAnalysis;
+using Glory.CodeAnalysis;
 
-namespace Unyo
+namespace Glory
 {
-
-    public class Program
+    internal static class Program
     {
-        public static void Main(string[] args)
+        private static void Main()
         {
-            bool showTree = false;
+            var showTree = false;
             while (true)
             {
                 Console.Write("# ");
@@ -34,10 +33,9 @@ namespace Unyo
 
                 if (showTree)
                 {
-                    var color = Console.ForegroundColor;
                     Console.ForegroundColor = ConsoleColor.DarkGray;
                     PrettyPrint(syntaxTree.Root);
-                    Console.ForegroundColor = color;
+                    Console.ResetColor();                    
                 }
                 if (!syntaxTree.Diagnostics.Any())
                 {
@@ -47,7 +45,6 @@ namespace Unyo
                 }
                 else
                 {
-                    var color = Console.ForegroundColor;
                     Console.ForegroundColor = ConsoleColor.DarkRed;
 
                     foreach (var diagnostics in syntaxTree.Diagnostics)
@@ -55,7 +52,7 @@ namespace Unyo
                         Console.WriteLine(diagnostics);
                     }
 
-                    Console.ForegroundColor = color;
+                    Console.ResetColor();
                 }
             }
         }
@@ -78,7 +75,7 @@ namespace Unyo
 
             Console.WriteLine();
 
-            indent += isLast ? "    " : "│   ";
+            indent += isLast ? "   " : "│   ";
 
             var lastChild = node.GetChildren().LastOrDefault();
 
