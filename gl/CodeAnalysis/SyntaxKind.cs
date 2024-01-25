@@ -11,7 +11,7 @@ namespace Glory.CodeAnalysis
     CloseParenthesisToken,
     BadToken,
     EndOfFileToken,
-    NumberExpression,
+    LiteralExpression,
     BinaryExpression,
     ParenthesizedExpression
   }
