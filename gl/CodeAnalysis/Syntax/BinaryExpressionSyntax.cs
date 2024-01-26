@@ -1,9 +1,7 @@
-namespace Glory.CodeAnalysis
+namespace Glory.CodeAnalysis.Syntax
 {
-    public sealed class BinaryExpressionSyntax : ExpressionSyntax
-    {
-        public BinaryExpressionSyntax(ExpressionSyntax left, SyntaxToken operatorToken, ExpressionSyntax right)
-        {
+    public sealed class BinaryExpressionSyntax : ExpressionSyntax {
+        public BinaryExpressionSyntax(ExpressionSyntax left, SyntaxToken operatorToken, ExpressionSyntax right) {
             Left = left;
             OperatorToken = operatorToken;
             Right = right;
@@ -14,13 +12,10 @@ namespace Glory.CodeAnalysis
         public SyntaxToken OperatorToken { get; }
         public ExpressionSyntax Right { get; }
 
-        public override IEnumerable<SyntaxNode> GetChildren()
-        {
+        public override IEnumerable<SyntaxNode> GetChildren() {
             yield return Left;
             yield return OperatorToken;
             yield return Right;
         }
-
     }
-
 }

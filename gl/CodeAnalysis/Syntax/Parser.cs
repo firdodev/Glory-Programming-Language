@@ -1,6 +1,6 @@
 using System.Diagnostics;
 
-namespace Glory.CodeAnalysis
+namespace Glory.CodeAnalysis.Syntax
 {
     internal sealed class Parser
     {
@@ -68,7 +68,18 @@ namespace Glory.CodeAnalysis
         }
 
         private ExpressionSyntax ParseExpression(int parentPrecedence = 0){
-            var left = ParsePrimaryExpression();
+            
+            ExpressionSyntax left;
+            var unaryOperatorPrecedence = Current.Kind.GetUnaryOperatorPrecedence();
+
+            if(unaryOperatorPrecedence != 0 && unaryOperatorPrecedence >= parentPrecedence){
+                var operatorToken = NextToken();
+                var operand = ParseExpression(unaryOperatorPrecedence);
+                left = new UnaryExpressionSyntax(operatorToken, operand);
+            }else{
+                left = ParsePrimaryExpression();
+            }
+
 
             while(true){
                 var precedence = Current.Kind.GetBinaryOperatorPrecedence();

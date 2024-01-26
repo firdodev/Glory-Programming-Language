@@ -1,4 +1,4 @@
-namespace Glory.CodeAnalysis
+namespace Glory.CodeAnalysis.Syntax
 {
   public abstract class SyntaxNode
   {

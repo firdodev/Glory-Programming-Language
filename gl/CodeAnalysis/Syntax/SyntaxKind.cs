@@ -1,4 +1,4 @@
-namespace Glory.CodeAnalysis
+namespace Glory.CodeAnalysis.Syntax
 {
   public enum SyntaxKind {    
     NumberToken,
@@ -13,6 +13,7 @@ namespace Glory.CodeAnalysis
     EndOfFileToken,
     LiteralExpression,
     BinaryExpression,
-    ParenthesizedExpression
+    ParenthesizedExpression,
+    UnaryExpression
   }
 }
