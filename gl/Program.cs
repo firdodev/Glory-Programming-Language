@@ -1,6 +1,7 @@
 ﻿using System;
 using Glory.CodeAnalysis;
 using Glory.CodeAnalysis.Syntax;
+using Glory.CodeAnalysis.Binding;
 
 namespace Glory {
     internal static class Program {
@@ -23,6 +24,10 @@ namespace Glory {
                 }
 
                 var syntaxTree = SyntaxTree.Parse(line);
+                var binder = new Binder();
+                var boundExpression = binder.BindExpression(syntaxTree.Root);
+
+                var diagnostics = syntaxTree.Diagnostics.Concat(binder.Diagnostics).ToArray();
 
                 if (showTree) {
                     Console.ForegroundColor = ConsoleColor.DarkGray;
@@ -30,15 +35,16 @@ namespace Glory {
                     Console.ResetColor();                    
                 }
 
-                if (!syntaxTree.Diagnostics.Any()) {
-                    var e = new Evaluator(syntaxTree.Root);
+
+                if (!diagnostics.Any()) {
+                    var e = new Evaluator(boundExpression);
                     var result = e.Evaluate();
                     Console.WriteLine(result);
                 } else {
                     Console.ForegroundColor = ConsoleColor.DarkRed;
 
-                    foreach (var diagnostics in syntaxTree.Diagnostics) {
-                        Console.WriteLine(diagnostics);
+                    foreach (var diagnostic in diagnostics) {
+                        Console.WriteLine(diagnostic);
                     }
 
                     Console.ResetColor();
