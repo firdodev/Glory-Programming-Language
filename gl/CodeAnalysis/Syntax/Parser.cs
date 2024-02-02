@@ -94,18 +94,27 @@ namespace Glory.CodeAnalysis.Syntax
             return left;
         }
 
-        private ExpressionSyntax ParsePrimaryExpression()
-        {
-            if (Current.Kind == SyntaxKind.OpenParenthesisToken)
-            {
-                var left = NextToken();
-                var expression = ParseExpression();
-                var right = MatchToken(SyntaxKind.CloseParenthesisToken);
-                return new ParenthesizedExpressionSyntax(left, expression, right);
-            }
+        private ExpressionSyntax ParsePrimaryExpression() {
+            switch (Current.Kind) {
+                case SyntaxKind.OpenParenthesisToken: {
+                    var left = NextToken();
+                    var expression = ParseExpression();
+                    var right = MatchToken(SyntaxKind.CloseParenthesisToken);
+                    return new ParenthesizedExpressionSyntax(left, expression, right);
+                }
 
-            var numberToken = MatchToken(SyntaxKind.NumberToken);
-            return new LiteralExpressionSyntax(numberToken);
+                case SyntaxKind.FalseKeyword:
+                case SyntaxKind.TrueKeyword: {
+                    var keywordToken = NextToken();
+                    var value = Current.Kind == SyntaxKind.TrueKeyword;
+                    return new LiteralExpressionSyntax(keywordToken, value);
+                }
+
+                default: {
+                    var numberToken = MatchToken(SyntaxKind.NumberToken);
+                    return new LiteralExpressionSyntax(numberToken);
+                }
+            }
         }
     }
 

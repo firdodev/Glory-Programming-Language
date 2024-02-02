@@ -7,12 +7,10 @@ namespace Glory.CodeAnalysis.Binding
             Right = right;
         }
 
+        public override BoundNodeKind Kind => BoundNodeKind.UnaryExpression;
         public override Type Type => Left.Type;
-        public BoundBinaryOperatorKind OperatorKind { get; }
         public BoundExpression Right { get; }
+        public BoundBinaryOperatorKind OperatorKind { get; }
         public BoundExpression Left { get; }
-        
-
-        public override BoundNodeKind Kind => BoundNodeKind.BinaryExpression;
     }
 }

@@ -16,12 +16,12 @@ namespace Glory.CodeAnalysis.Binding
                 case SyntaxKind.BinaryExpression:
                     return BindBinaryExpression((BinaryExpressionSyntax)syntax);
                 default:
-                    throw new Exception($"Unexpected syntax {syntax.Kind}");
+                    throw new Exception($"Unexpected syntax {syntax.Kind}.");
             }
         }
 
         private BoundExpression BindLiteralExpression(LiteralExpressionSyntax syntax){
-            var value = syntax.LiteralToken.Value as int? ?? 0;
+            var value = syntax.Value ?? 0;
             return new BoundLiteralExpression(value);
         }
 
@@ -30,7 +30,7 @@ namespace Glory.CodeAnalysis.Binding
             var boundOperandKind = BindUnaryOperatorKind(syntax.OperatorToken.Kind, boundOperand.Type);
 
             if(boundOperandKind == null){
-                _diagnostics.Add($"Unary operator '{syntax.OperatorToken.Text}' is not defined for type {boundOperand.Type}");
+                _diagnostics.Add($"Unary operator '{syntax.OperatorToken.Text}' is not defined for type {boundOperand.Type}.");
                 return boundOperand;
             }
 
@@ -43,7 +43,7 @@ namespace Glory.CodeAnalysis.Binding
             var boundOperandKind = BindBinaryOperatorKind(syntax.OperatorToken.Kind, boundLeft.Type, boundRight.Type);
 
             if(boundOperandKind == null){
-                _diagnostics.Add($"Binary operator '{syntax.OperatorToken.Text}' is not defined for types {boundLeft.Type} and {boundRight.Type}");
+                _diagnostics.Add($"Binary operator '{syntax.OperatorToken.Text}' is not defined for types {boundLeft.Type} and {boundRight.Type}.");
                 return boundLeft;
             }
 
@@ -59,9 +59,9 @@ namespace Glory.CodeAnalysis.Binding
                 case SyntaxKind.PlusToken:
                     return BoundUnaryOperatorKind.Identity;
                 case SyntaxKind.MinusToken:
-                    return BoundUnaryOperatorKind.Identity;
+                    return BoundUnaryOperatorKind.Negation;
                 default:
-                    throw new Exception($"Unexpected unary operator {kind}");
+                    throw new Exception($"Unexpected unary operator {kind}.");
             }
         }
 
@@ -80,7 +80,7 @@ namespace Glory.CodeAnalysis.Binding
                 case SyntaxKind.SlashToken:
                     return BoundBinaryOperatorKind.Division;
                 default:
-                    throw new Exception($"Unexpected binary operator {kind}");
+                    throw new Exception($"Unexpected binary operator {kind}.");
             } 
         }
 

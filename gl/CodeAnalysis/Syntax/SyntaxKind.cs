@@ -14,6 +14,9 @@ namespace Glory.CodeAnalysis.Syntax
     LiteralExpression,
     BinaryExpression,
     ParenthesizedExpression,
-    UnaryExpression
+    UnaryExpression,
+    TrueKeyword,
+    FalseKeyword,
+    IdentifierToken
   }
 }
