@@ -24,30 +24,31 @@ namespace Glory.CodeAnalysis
                 return n.Value;
 
             if (node is BoundUnaryExpression u){
-                var operand = (int) EvaluateExpression(u.Operand);
+                var operand = EvaluateExpression(u.Operand);
 
-                if(u.OperatorKind == BoundUnaryOperatorKind.Identity)
-                    return operand;
-                else if(u.OperatorKind == BoundUnaryOperatorKind.Negation)
-                    return -operand;
-                else
-                    throw new Exception($"Unexpected unary operator {u.OperatorKind}");
+                return u.OperatorKind switch
+                {
+                    BoundUnaryOperatorKind.Identity => (int)operand,
+                    BoundUnaryOperatorKind.Negation => -(int)operand,
+                    BoundUnaryOperatorKind.LogicalNegation => !(bool)operand,
+                    _ => throw new Exception($"Unexpected unary operator {u.OperatorKind}"),
+                };
             }
 
             if (node is BoundBinaryExpression b) {
-                var left = (int) EvaluateExpression(b.Left);
-                var right = (int) EvaluateExpression(b.Right);
+                var left = EvaluateExpression(b.Left);
+                var right = EvaluateExpression(b.Right);
 
-                if (b.OperatorKind == BoundBinaryOperatorKind.Addition)
-                    return left + right;
-                else if (b.OperatorKind == BoundBinaryOperatorKind.Subtraction)
-                    return left - right;
-                else if (b.OperatorKind == BoundBinaryOperatorKind.Multiplication)
-                    return left * right;
-                else if (b.OperatorKind == BoundBinaryOperatorKind.Division)
-                    return left / right;
-                else
-                    throw new Exception($"Unexpected binary operator {b.OperatorKind}");
+                return b.OperatorKind switch
+                {
+                    BoundBinaryOperatorKind.Addition => (int)left + (int)right,
+                    BoundBinaryOperatorKind.Subtraction => (int)left - (int)right,
+                    BoundBinaryOperatorKind.Multiplication => (int)left * (int)right,
+                    BoundBinaryOperatorKind.Division => (int)left / (int)right,
+                    BoundBinaryOperatorKind.LogicalAnd => (bool)left && (bool)right,
+                    BoundBinaryOperatorKind.LogicalOr => (bool)left || (bool)right,
+                    _ => throw new Exception($"Unexpected binary operator {b.OperatorKind}"),
+                };
             }
 
             throw new Exception($"Unexpected node {node.Kind}");

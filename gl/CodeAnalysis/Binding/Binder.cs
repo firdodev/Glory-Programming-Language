@@ -51,37 +51,49 @@ namespace Glory.CodeAnalysis.Binding
         }
 
         private BoundUnaryOperatorKind? BindUnaryOperatorKind(SyntaxKind kind, Type operandType){
-
-            if(operandType != typeof(int))
-                return null;
-
-            switch(kind){
-                case SyntaxKind.PlusToken:
-                    return BoundUnaryOperatorKind.Identity;
-                case SyntaxKind.MinusToken:
-                    return BoundUnaryOperatorKind.Negation;
-                default:
-                    throw new Exception($"Unexpected unary operator {kind}.");
+            if(operandType == typeof(int)){
+                switch(kind){
+                    case SyntaxKind.PlusToken:
+                        return BoundUnaryOperatorKind.Identity;
+                    case SyntaxKind.MinusToken:
+                        return BoundUnaryOperatorKind.Negation;
+                }
             }
+
+            if(operandType == typeof(bool)){
+                switch(kind){
+                    case SyntaxKind.BangToken:
+                        return BoundUnaryOperatorKind.LogicalNegation;
+                }
+            }
+
+            return null;
         }
 
         private BoundBinaryOperatorKind? BindBinaryOperatorKind(SyntaxKind kind, Type leftType, Type rightType){
+            if (leftType == typeof(int) && rightType == typeof(int)) {
+                switch (kind) {
+                    case SyntaxKind.PlusToken:
+                        return BoundBinaryOperatorKind.Addition;
+                    case SyntaxKind.MinusToken:
+                        return BoundBinaryOperatorKind.Subtraction;
+                    case SyntaxKind.StarToken:
+                        return BoundBinaryOperatorKind.Multiplication;
+                    case SyntaxKind.SlashToken:
+                        return BoundBinaryOperatorKind.Division;
+                }
+            }
 
-            if(leftType != typeof(int) || rightType != typeof(int))
-                return null;
+            if (leftType == typeof(bool) && rightType == typeof(bool)) {
+                switch (kind) {
+                    case SyntaxKind.AmpersandAmpersandToken:
+                        return BoundBinaryOperatorKind.LogicalAnd;
+                    case SyntaxKind.PipePipeToken:
+                        return BoundBinaryOperatorKind.LogicalOr;
+                }
+            }
 
-           switch(kind){
-                case SyntaxKind.PlusToken:
-                    return BoundBinaryOperatorKind.Addition;
-                case SyntaxKind.MinusToken:
-                    return BoundBinaryOperatorKind.Subtraction;
-                case SyntaxKind.StarToken:
-                    return BoundBinaryOperatorKind.Multiplication;
-                case SyntaxKind.SlashToken:
-                    return BoundBinaryOperatorKind.Division;
-                default:
-                    throw new Exception($"Unexpected binary operator {kind}.");
-            } 
+            return null;
         }
 
     }

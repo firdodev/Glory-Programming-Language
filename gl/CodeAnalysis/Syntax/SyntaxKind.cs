@@ -17,6 +17,9 @@ namespace Glory.CodeAnalysis.Syntax
     UnaryExpression,
     TrueKeyword,
     FalseKeyword,
-    IdentifierToken
+    IdentifierToken,
+    BangToken,
+    AmpersandAmpersandToken,
+    PipePipeToken
   }
 }
